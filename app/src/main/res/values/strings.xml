@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">MyWeatherApp</string>
+    <string name="weather_get">Get Weather</string>
+    <string name="location">Your Location is:</string>
+    <string name="city"></string>
+    <string name="button">Get Info</string>
+    <string name="climate">Climate:</string>
+    <string name="Latitude">Latitude:</string>
+    <string name="Longitude">Longitude:</string>
+    <string name="Temperature">Temperature:</string>
+</resources>
