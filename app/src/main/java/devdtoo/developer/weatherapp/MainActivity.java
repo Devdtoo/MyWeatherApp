@@ -1,12 +1,15 @@
-package com.example.myweatherapp;
+package devdtoo.developer.weatherapp;
 
 
+import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,6 +19,8 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.github.ybq.android.spinkit.sprite.Sprite;
+import com.github.ybq.android.spinkit.style.DoubleBounce;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -29,10 +34,14 @@ public class MainActivity extends AppCompatActivity {
     TextView resultLat;
     TextView resultLon;
     TextView temp_tv;
+    RelativeLayout background;
 
-    //  https://api.openweathermap.org/data/2.5/weather?q=lucknow&appid=15bb59511e15f1086dbac85cf0989b9a
+    Resources res;
+    Drawable drawable;
+
+
     String baseURL = "https://api.openweathermap.org/data/2.5/weather?q=";
-    String API = "&appid=15bb59511e15f1086dbac85cf0989b9a";
+    String API = "YOUR_API_KEY";
     String myURL;
 
 
@@ -40,13 +49,22 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        progressBar = findViewById(R.id.progress);
         myButton = findViewById(R.id.button);
         city = findViewById(R.id.getCity);
         resultClimate = findViewById(R.id.resultC);
         resultLat = findViewById(R.id.resultLat);
         resultLon = findViewById(R.id.resultLon);
         temp_tv = findViewById(R.id.temperature);
+
+        progressBar = findViewById(R.id.progress);
+        Sprite doubleBounce = new DoubleBounce();
+        progressBar.setIndeterminateDrawable(doubleBounce);
+        background = findViewById(R.id.relative);
+
+        // change background
+         res = getResources(); //resource handle
+        drawable = res.getDrawable(R.drawable.winter);
+        background.setBackground(drawable);
 
 
         myButton.setOnClickListener(new View.OnClickListener() {
@@ -85,6 +103,8 @@ public class MainActivity extends AppCompatActivity {
                                         resultClimate.setText(myClimate);
 
 
+
+
 //                                        Toast.makeText(MainActivity.this,
 //                                                "ID: "+parObj.getString("id")+"\n"
 //                                                +
@@ -109,10 +129,20 @@ public class MainActivity extends AppCompatActivity {
                                     String parentTemp = response.getString("main");
                                     JSONObject tempObj = new JSONObject(parentTemp);
                                     String tempFromJSON = tempObj.getString("temp") ;
-                                    float tempInF = Float.parseFloat(tempFromJSON);
+//                                    float tempInF = Float.parseFloat(tempFromJSON);
+                                    Double tempInKelvin = Double.parseDouble(tempFromJSON);
 
+
+//                                    a=Double.parseDouble(String.valueOf(et.getText()));
+                                    /*float b=tempInF-32;
+                                    float c=b*5/9;
+                                    String r=String.valueOf(c);
                                     String tempInC ="Temperature: "+ ( (tempInF-32) * 5 ) / 9;
-                                    String temperature = tempInC +"C";
+                                    String temperature = tempInC +"C";*/
+
+//                                    Math.round(d * 100.0) / 100.0
+
+                                    String temperature ="Temperature: "+ (Math.round(tempInKelvin - 273.15))  + " C" ;
 
                                     temp_tv.setText(temperature);
 

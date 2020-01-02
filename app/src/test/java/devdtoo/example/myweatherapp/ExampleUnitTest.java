@@ -1,4 +1,4 @@
-package com.example.myweatherapp;
+package devdtoo.example.myweatherapp;
 
 import org.junit.Test;
 

@@ -1,4 +1,4 @@
-package com.example.myweatherapp;
+package devdtoo.developer.weatherapp;
 
 import android.content.Context;
 
